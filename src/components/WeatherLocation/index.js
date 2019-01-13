@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Location from './Location';
 import WeatherData from './WeatherData';
+import transformWeather from './../../services/transformWeather';
+import { api_weather } from './../../constants/api_url';
 import './styles.css';
 
 import {
@@ -19,12 +21,6 @@ const data = {
     wind: '10 m/s',
 }
 
-const data2 = {
-    temperature: 3,
-    weatherState: WINDY,
-    humidity: 60,
-    wind: '12 m/s',
-}
 
 class WeatherLocation extends Component {
     constructor() {
@@ -33,17 +29,42 @@ class WeatherLocation extends Component {
             city: 'Manizales',
             data: data,
         };
+        console.log("Constructor");
+    }
+
+    componentDidMount() {
+        console.log("componentDidMound");
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log("componentDidUpdate");
+    }
+
+    componentWillMount() {
+        console.log("UNSAFE componentWillMount");
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        console.log("UNSAFE componentWillUpdate");
     }
 
     handleUpdateClick = () => {
-        console.log("actualizado");
-        this.setState({
-            //city: 'Pereira',
-            data: data2,
-        });
+        fetch(api_weather).then(resolve => {
+            return resolve.json();
+        }).then(data => {
+            //console.log(data);
+            const newWeather = transformWeather(data);
+            console.log(newWeather);
+            //debugger;
+            this.setState({
+                city: data.name,
+                data: newWeather
+            });
+         });
     }
 
     render(){
+        console.log("render");
         const {city, data } = this.state;
         return (
             <div className="weatherLocationCont">

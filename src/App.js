@@ -9,24 +9,27 @@ import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
 
 const cities = [
-  'Pereira,col',
-  'Manizales,col',
+  //'Pereira,col',
+  //'Manizales,col',
   'Medellín,col',
-  'Barranquilla,col',
-  'Bogota,col',
-  'Pasto,col',
+  //'Barranquilla,col',
+  //'Bogota,col',
+  //'Pasto,col',
 ]
 
 class App extends Component {
   constructor(){
     super();
-    this.state = {city: 'Nueva ciudad'};
+    this.state = {city: null};
   }
 
   handleSelectionLocation = city => {
-    console.log(`handleSelectionLocation(${city})`);
+    this.setState({city: city});
+    console.log(`handleSelectionLocation > (${city})`);
   }
+
   render() {
+    const { city } = this.state;
     return (
       <Grid>
         <Row>
@@ -44,9 +47,13 @@ class App extends Component {
             onSelectedLocation={this.handleSelectionLocation}/>
           </Col>
           <Col xs={12} md={6} >
-            <Paper zDepth={4} >
+            <Paper elevation={4} >
               <div className="details">
-                <ForecastExtended city={this.state.city} />
+                {
+                  !city ?
+                    null:
+                    <ForecastExtended city={city} />
+                }
               </div>
             </Paper>
           </Col>

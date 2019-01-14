@@ -6,7 +6,7 @@ import Location from './Location';
 import WeatherData from './WeatherData';
 import transformWeather from './../../services/transformWeather';
 import './styles.css';
-import { pathToFileURL } from 'url';
+//import { pathToFileURL } from 'url';
 
 // import {
 //     CLOUD,
@@ -61,7 +61,7 @@ class WeatherLocation extends Component {
             return resolve.json();
         }).then(data => {
             console.log("Resultado del handleUpdateClick");
-            //console.log(data);
+            console.log(data);
             const newWeather = transformWeather(data);
             console.log(newWeather);
             //debugger;

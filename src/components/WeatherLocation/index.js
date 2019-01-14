@@ -6,6 +6,7 @@ import Location from './Location';
 import WeatherData from './WeatherData';
 import transformWeather from './../../services/transformWeather';
 import './styles.css';
+import { pathToFileURL } from 'url';
 
 // import {
 //     CLOUD,
@@ -73,9 +74,10 @@ class WeatherLocation extends Component {
 
     render(){
         console.log("render");
+        const { onWeatherLocationClick } = this.props;
         const {city, data } = this.state;
         return (
-            <div className="weatherLocationCont">
+            <div className="weatherLocationCont" onClick={onWeatherLocationClick}>
                 <Location city={city}></Location>
                 {data ?
                     <WeatherData data={data}></WeatherData> :
@@ -90,6 +92,7 @@ class WeatherLocation extends Component {
 
 WeatherLocation.propTypes = {
     city: PropTypes.string.isRequired,
+    onWeatherLocationClick: PropTypes.func,
 }
 
 export default WeatherLocation;

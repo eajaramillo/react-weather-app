@@ -6,7 +6,6 @@
     "@material-ui/core": "^3.8.3",
     "convert-units": "^2.3.4",
     "moment": "^2.23.0",
-    "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-flexbox-grid": "^2.1.2",
@@ -29,5 +28,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "prop-types": "^15.6.2"
+  }
 }

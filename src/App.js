@@ -10,7 +10,7 @@ import ForecastExtended from './components/ForecastExtended';
 
 const cities = [
   //'Pereira,col',
-  //'Manizales,col',
+  'Manizales,col',
   'Medellín,col',
   //'Barranquilla,col',
   //'Bogota,col',

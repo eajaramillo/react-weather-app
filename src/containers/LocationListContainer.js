@@ -1,29 +1,49 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setCity } from './../actions';
+import * as actions from './../actions';
+import { getWeatherCities, getCity } from './../reducers';
 import LocationList from './../components/LocationList';
 
 class LocationListContainer extends Component {
-    handleSelectionLocation = city => {
-        this.props.dispatchSetCity(city);
-      }
+    componentDidMount() {
+        const { setWeather, setSelectedCity, cities, city } = this.props;
+        
+        setWeather(cities);
+
+        setSelectedCity(city);
+    }
+    
+    handleSelectedLocation = city => {
+        this.props.setSelectedCity(city);
+    }
 
     render() {
         return (
-            <LocationList cities={this.props.cities}
-              onSelectedLocation={this.handleSelectionLocation}/>
+            <LocationList cities={this.props.citiesWeather}
+              onSelectedLocation={this.handleSelectedLocation}/>
         );
     }
 }
 
 LocationListContainer.propTypes = {
-    dispatchSetCity: PropTypes.func.isRequired,
+    setSelectedCity: PropTypes.func.isRequired,
+    setWeather: PropTypes.func.isRequired,
     cities: PropTypes.array.isRequired,
+    citiesWeather: PropTypes.array,
+    city: PropTypes.string.isRequired,
 };
 
-const mapDispatchToPropsActions = dispatch => ({
-    dispatchSetCity: value => dispatch(setCity(value))
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+/*const mapDispatchToProps = dispatch => ({
+    setCity: value => dispatch(setSelectedCity(value)),
+    setWeather: cities => dispatch(setWeather(cities)),
+});*/
+
+const mapStateToProps = state => ({
+    citiesWeather: getWeatherCities(state),
+    city: getCity(state),
 });
 
-export default connect(null, mapDispatchToPropsActions)(LocationListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LocationListContainer);
